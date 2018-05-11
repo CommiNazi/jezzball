@@ -20,6 +20,10 @@ class Vector {
     this.x = vector.x
     this.y = vector.y
   }
+  mult(vector) {
+    this.x *= vector.x
+    this.y *= vector.y
+  }
 }
 
 const UPRIGHT   = new Vector({x: 1, y:-1})
@@ -64,6 +68,7 @@ class Ball {
   update(dt, balls, line, walls, edges) {
     this.checkEdges(edges)
     this.checkBalls(balls)
+    this.checkWalls(walls)
     this.x += this.vector.x*this.speed*dt
     this.y += this.vector.y*this.speed*dt
   }
@@ -88,7 +93,7 @@ class Ball {
     const dy=distY-wall.height/2
     return (dx*dx+dy*dy<=(this.r*this.r))
   }
-  bounces (rect) {
+  bounce (rect) {
     // compute a center-to-center vector
     const half = {
       x: rect.width/2,
@@ -110,8 +115,8 @@ class Ball {
     if (side.x < -this.r && side.y < -this.r) // inside
       return { bounce: false }
     if (side.x < 0 || side.y < 0) { // intersects side or corner
-      let dx = 0
-      let dy = 0
+      let dx = 1
+      let dy = 1
       if (Math.abs (side.x) < this.r && side.y < 0) {
         dx = center.x*side.x < 0 ? -1 : 1
       } else if (Math.abs (side.y) < this.r && side.x < 0) {
@@ -123,17 +128,20 @@ class Ball {
     const bounce = side.x*side.x + side.y*side.y  < this.r*this.r
     if (!bounce) return { bounce:false }
 
-    const norm = Math.sqrt (side.x*side.x+side.y*side.y)
+    // const norm = Math.sqrt (side.x*side.x+side.y*side.y)
     const dx = center.x < 0 ? -1 : 1
     const dy = center.y < 0 ? -1 : 1
-    return { bounce:true, x: dx*side.x/norm, y: dy*side.y/norm }
+    return { bounce: true, x:dx, y:dy }
   }
   checkWalls(walls) {
+    const that = this
     walls.forEach(wall=>{
       if(this.checkWall(wall)) {
-        const response = this.bounce(wall)
+        const response = that.bounce(wall)
+        if(response.x === 0 || response.y === 0)
+          console.error("why erorr?",response)
         if(response.bounce) {
-          this.vector.set(response)
+          this.vector.mult(response)
         }
       }
     })
@@ -218,10 +226,10 @@ class Ball {
 
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
-const ball1 = new Ball(8, Math.seededRandom(0,canvas.width), Math.seededRandom(0,canvas.height), 3, "red")
-const ball2 = new Ball(8, Math.seededRandom(0,canvas.width), Math.seededRandom(0,canvas.height), 3, "blue")
-const ball3 = new Ball(8, Math.seededRandom(0,canvas.width), Math.seededRandom(0,canvas.height), 3, "green")
-const ball4 = new Ball(8, Math.seededRandom(0,canvas.width), Math.seededRandom(0,canvas.height), 3, "purple")
+const ball1 = new Ball(8, Math.seededRandom(0,canvas.width), Math.seededRandom(0,canvas.height), 300, "red")
+const ball2 = new Ball(8, Math.seededRandom(0,canvas.width), Math.seededRandom(0,canvas.height), 300, "blue")
+const ball3 = new Ball(8, Math.seededRandom(0,canvas.width), Math.seededRandom(0,canvas.height), 300, "green")
+const ball4 = new Ball(8, Math.seededRandom(0,canvas.width), Math.seededRandom(0,canvas.height), 300, "purple")
 const wall1 = new Wall((canvas.width/2)|0, 0, 10, canvas.height, "yellow")
 
 function drawCanvas() {

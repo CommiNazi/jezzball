@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CommiNazi/jezzball.git"
+    "url": "git@github.com:CommiNazi/jezzball.git"
   },
   "author": "commi",
   "license": "ISC",

@@ -8,7 +8,9 @@ const opts = {
   attack: 1,
   lives: 2,
   balls: 2,
-  forecastLength: 10
+  forecastLength: 10,
+  width: 500,
+  height: 250
 }
 
 game.run(opts)
