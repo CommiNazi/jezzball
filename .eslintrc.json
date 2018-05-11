@@ -1,0 +1,37 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 2016,
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-console": ["error", { "allow": ["warn", "error", "info"] }],
+        "no-var": "error",
+        "prefer-const": "error",
+        "indent": [
+            "error",
+            2
+        ],
+        "one-var": [
+          "error",
+          { "initialized": "never" }
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "never"
+        ]
+    }
+}

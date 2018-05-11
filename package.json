@@ -1,0 +1,34 @@
+{
+  "name": "jezzball",
+  "version": "0.0.1",
+  "description": "New Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --progress --watch",
+    "start": "webpack-dev-server --open",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CommiNazi/jezzball.git"
+  },
+  "author": "commi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CommiNazi/jezzball/issues"
+  },
+  "homepage": "https://github.com/CommiNazi/jezzball#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.16",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.28.7",
+    "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.30.1",
+    "style-loader": "^0.18.2",
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1"
+  }
+}
